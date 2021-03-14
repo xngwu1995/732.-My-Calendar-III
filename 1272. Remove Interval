@@ -1,0 +1,13 @@
+class Solution:
+    def removeInterval(self, num: List[List[int]], toBeRemoved: List[int]) -> List[List[int]]:
+        remove_min,remove_max = toBeRemoved[0],toBeRemoved[1]
+        ans = []
+        for lo,hi in num:
+            if hi <= remove_min or lo >= remove_max:
+                ans.append([lo,hi])
+            else:
+                if lo < remove_min and hi >= remove_min:
+                    ans.append([lo,remove_min])
+                if lo <= remove_max and hi > remove_max:
+                    ans.append([remove_max,hi])
+        return ans
