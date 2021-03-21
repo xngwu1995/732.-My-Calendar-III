@@ -1,0 +1,34 @@
+class Solution:
+    def isRectangleCover(self, rec: List[List[int]]) -> bool:
+        s = set()
+        for x1,y1,x2,y2 in rec:
+            bl,br,tl,tr = (x1,y1,'bl'),(x2,y1,'br'),(x1,y2,'tl'),(x2,y2,'tr')
+            for corner in (bl,br,tl,tr):
+                if corner in s: return False
+                s.add(corner)
+            if (x1,y1,'tl') in s:
+                s.remove((x1,y1,'tl'))
+                s.remove(bl)
+            elif (x1,y1,'br') in s:
+                s.remove((x1,y1,'br'))
+                s.remove(bl)
+            if (x2,y1,'tr') in s:
+                s.remove((x2,y1,'tr'))
+                s.remove(br)
+            elif (x2,y1,'bl') in s:
+                s.remove((x2,y1,'bl'))
+                s.remove(br)
+            if (x1,y2,'bl') in s:
+                s.remove((x1,y2,'bl'))
+                s.remove(tl)
+            elif (x1,y2,'tr') in s:
+                s.remove((x1,y2,'tr'))
+                s.remove(tl)
+            if (x2,y2,'br') in s:
+                s.remove((x2,y2,'br'))
+                s.remove(tr)
+            elif (x2,y2,'tl') in s:
+                s.remove((x2,y2,'tl'))
+                s.remove(tr)
+                
+        return len(s) == 4
