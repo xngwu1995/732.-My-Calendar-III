@@ -1,0 +1,27 @@
+class Solution:
+    def maximumScore(self, nums: List[int], k: int) -> int:
+        res, minNum = nums[k], nums[k]
+        l,r = k,k
+        n = len(nums)
+        while True:
+            while l > 0 and nums[l-1] >= minNum:
+                l -= 1
+            while r < n - 1 and nums[r+1] >= minNum:
+                r += 1
+            res = max(res, minNum*(r-l+1))
+            if l == 0 and r == n-1:
+                return res
+            elif l == 0:
+                r += 1
+                minNum = nums[r]
+            elif r == n-1:
+                l -= 1
+                minNum = nums[l]
+            else:
+                if nums[l-1] > nums[r+1]:
+                    l -= 1
+                    minNum = nums[l]
+                else:
+                    r += 1
+                    minNum = nums[r]
+        return res
