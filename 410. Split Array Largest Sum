@@ -1,0 +1,27 @@
+class Solution:
+    def splitArray(self, nums: List[int], m: int) -> int:
+        min_result, max_result = max(nums), sum(nums)
+        
+        final_result = float('inf')
+        
+        while min_result <= max_result:
+            mid = (min_result + max_result) // 2
+            if self.isPossibility(mid,nums,m):
+                final_result = mid
+                max_result = mid - 1
+            else:
+                min_result = mid + 1
+                
+        return final_result
+    
+    def isPossibility(self,x,nums,m):
+        numSubary = 1
+        subSum = 0
+        
+        for num in nums:
+            if num + subSum <= x:
+                subSum += num
+            else:
+                numSubary += 1
+                subSum = num
+        return numSubary<=m
