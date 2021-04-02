@@ -1,0 +1,16 @@
+class Solution:
+    def smallestDivisor(self, nums: List[int], threshold: int) -> int:
+        if sum(nums) <= threshold:
+            return 1
+        left = 1
+        right = max(nums)
+        while left < right:
+            divisor = (left+right) // 2
+            sum_num = 0
+            for num in nums:
+                sum_num += (num-1) // divisor + 1
+            if sum_num > threshold:
+                left = divisor + 1
+            else:
+                right = divisor
+        return left
