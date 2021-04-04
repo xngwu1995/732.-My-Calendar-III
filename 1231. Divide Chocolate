@@ -1,0 +1,20 @@
+class Solution:
+    def maximizeSweetness(self, sweetness: List[int], K: int) -> int:
+        left = min(sweetness)
+        right = sum(sweetness) // (K+1)
+        ans = 0
+        while left <= right:
+            mid = (left + right) // 2
+            total_sweet = 0
+            count = 0
+            for sweet in sweetness:
+                total_sweet += sweet
+                if total_sweet > mid:
+                    count += 1
+                    total_sweet = 0
+            if count > K:
+                left = mid + 1
+            else:
+                ans = mid
+                right = mid - 1
+        return ans
